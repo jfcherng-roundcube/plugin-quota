@@ -4,7 +4,7 @@
  * Original plugin creator:
  * @author jfcherng@gmail.com
  *
- * Added usage pie-chart graphic, updated usage statistics:
+ * Added: usage pie-chart graphic, usage percent, documentation, BG translation:
  * @author Victor Kirov <victor.kirov.eu@gmail.com>
  */
 
@@ -54,10 +54,10 @@ class quota extends rcube_plugin
             $quota_text = $this->gettext('unknown');
         } else {
             $quota_text = sprintf('%f %% ( ', $quota['percent']);
-            if ($quota['used']<1024)
-               $quota_text.= (  floatval($quota['used'])  )." KB of ";
+            if (  intval($quota['used']) < 1024  )
+               $quota_text.= (  round(floatval($quota['used']),2)  )." KB of ";
             else
-               $quota_text.= (  floatval($quota['total'])/1024  )." MB of ";
+               $quota_text.= (  round(floatval($quota['used'])/1024,2)  )." MB of ";
             $quota_text.= (  floatval($quota['total'])/1024  )." MB )";
         }
 
