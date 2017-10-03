@@ -1,7 +1,11 @@
 <?php
 
 /**
+ * Original plugin creator:
  * @author jfcherng@gmail.com
+ *
+ * Added usage pie-chart graphic, updated usage statistics:
+ * @author Victor Kirov <victor.kirov.eu@gmail.com>
  */
 
 class quota extends rcube_plugin
@@ -14,6 +18,8 @@ class quota extends rcube_plugin
         $this->add_hook('quota', array($this, 'quota_message'));
         $this->register_action('plugin.quota', array($this, 'quota_init'));
         $this->include_script('quota.js');
+        $this->include_script('canvasjs.min.js');
+        $this->include_script('canvasjs.chart.js');
     }
 
     public function quota_init()
@@ -40,20 +46,24 @@ class quota extends rcube_plugin
     {
         $rc = rcmail::get_instance();
 
-        $form_title = $this->gettext('quota_plugin_title') . ' ::: ' . $rc->user->data['username'];
+        $form_title = $this->gettext('quota_plugin_title');
         $storage = $rc->get_storage();
         $quota = $storage->get_quota();
 
         if (!isset($quota['total'])) {
             $quota_text = $this->gettext('unknown');
         } else {
-            $quota_text = sprintf(
-                '%f %% ( %d KB / %d KB )',
-                $quota['percent'],
-                $quota['used'],
-                $quota['total']
-            );
+            $quota_text = sprintf('%f %% ( ', $quota['percent']);
+            if ($quota['used']<1024)
+               $quota_text.= (  floatval($quota['used'])  )." KB of ";
+            else
+               $quota_text.= (  floatval($quota['total'])/1024  )." MB of ";
+            $quota_text.= (  floatval($quota['total'])/1024  )." MB )";
         }
+
+        $quota1percent = floatval($quota['total']) / 100;
+        $quotaUsedPercents = floatval($quota['used']) / $quota1percent;
+        $quotaFreePercents = 100 - $quotaUsedPercents;
 
         $out =
             html::div(
@@ -66,16 +76,41 @@ class quota extends rcube_plugin
                     array('class' => 'boxcontent'),
                     html::p(
                         null,
-                        $this->gettext('space_used') . $quota_text
-                    ) .
-                    html::p(
-                        null,
-                        $this->gettext('problem_please_contact') . '<br />' .
-                        '<br />' .
-                        'Debug: ' . print_r($quota, true)
+					    $this->gettext('space_used') . $quota_text
+                    ).
+                    html::div(
+                        array('id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;'),
+                        ''
+                    ).
+                    html::div(
+                        array('id' => 'quotaUsedPercents', 'style' => 'display:none'),
+                        $quotaUsedPercents
+                    ).
+                    html::div(
+                        array('id' => 'quotaFreePercents', 'style' => 'display:none'),
+                        $quotaFreePercents
+                    ).
+                    html::div(
+                        array('id' => 'usedSpace', 'style' => 'display:none'),
+                        $this->gettext('space_used')
+                    ).
+                    html::div(
+                        array('id' => 'freeSpace', 'style' => 'display:none'),
+                        $this->gettext('space_free')
                     )
+					
+//  Debug:
+//                    html::p(
+//                        null,
+//                        $this->gettext('problem_please_contact') . '<br />' .
+//                        '<br />' .
+//                        'Debug: ' . print_r($quota, true)
+//                    )
                 )
             );
+
+
+        if (isset($quota['total'])) $out .= '<script>drawDiskQuota();</script>';
 
         return $out;
     }
