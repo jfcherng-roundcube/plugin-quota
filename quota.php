@@ -54,66 +54,61 @@ class quota extends rcube_plugin
             $quota_text = $this->gettext('unknown');
         } else {
             $quota_text = sprintf('%f %% ( ', $quota['percent']);
-            if (  intval($quota['used']) < 1024  )
-               $quota_text.= (  round(floatval($quota['used']),2)  )." KB of ";
-            else
-               $quota_text.= (  round(floatval($quota['used'])/1024,2)  )." MB of ";
-            $quota_text.= (  floatval($quota['total'])/1024  )." MB )";
+            if (intval($quota['used']) < 1024) {
+                $quota_text .= (round(floatval($quota['used']), 2)) . " KB of ";
+            } else {
+                $quota_text .= (round(floatval($quota['used']) / 1024, 2)) . " MB of ";
+            }
+
+            $quota_text .= (floatval($quota['total']) / 1024) . " MB )";
         }
 
         $quota1percent = floatval($quota['total']) / 100;
         $quotaUsedPercents = floatval($quota['used']) / $quota1percent;
         $quotaFreePercents = 100 - $quotaUsedPercents;
 
-        $out =
+        $out = (
             html::div(
                 array('class' => 'box'),
                 html::div(
                     array('id' => 'prefs-title', 'class' => 'boxtitle'),
                     $form_title
-                ).
+                ) .
                 html::div(
                     array('class' => 'boxcontent'),
                     html::p(
                         null,
-					    $this->gettext('space_used') . $quota_text
-                    ).
+                        $this->gettext('space_used') . $quota_text
+                    ) .
                     html::div(
                         array('id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;'),
                         ''
-                    ).
+                    ) .
                     html::div(
                         array('id' => 'quotaUsedPercents', 'style' => 'display:none'),
                         $quotaUsedPercents
-                    ).
+                    ) .
                     html::div(
                         array('id' => 'quotaFreePercents', 'style' => 'display:none'),
                         $quotaFreePercents
-                    ).
+                    ) .
                     html::div(
                         array('id' => 'usedSpace', 'style' => 'display:none'),
                         $this->gettext('space_used')
-                    ).
+                    ) .
                     html::div(
                         array('id' => 'freeSpace', 'style' => 'display:none'),
                         $this->gettext('space_free')
                     )
-					
-//  Debug:
-//                    html::p(
-//                        null,
-//                        $this->gettext('problem_please_contact') . '<br />' .
-//                        '<br />' .
-//                        'Debug: ' . print_r($quota, true)
-//                    )
                 )
-            );
+            )
+        );
 
-
-        if (isset($quota['total'])) $out .= '<script>drawDiskQuota();</script>';
+        if (isset($quota['total'])) {
+            $out .= '<script>drawDiskQuota();</script>';
+        }
 
         return $out;
     }
 
 }
-
