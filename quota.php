@@ -12,6 +12,16 @@ class quota extends rcube_plugin
 {
     public $task = 'mail|settings';
 
+    protected $config;
+    protected $config_file_loaded;
+
+    public function __construct($api)
+    {
+        parent::__construct($api);
+
+        $this->loadPluginConfigs();
+    }
+
     public function init()
     {
         $this->add_texts('localization/', true);
@@ -45,13 +55,15 @@ class quota extends rcube_plugin
     public function quota_form()
     {
         $rc = rcmail::get_instance();
-
         $form_title = $this->gettext('quota_plugin_title');
         $storage = $rc->get_storage();
         $quota = $storage->get_quota();
 
         if (!isset($quota['total'])) {
             $quota_text = $this->gettext('unknown');
+
+            $quotaUsedPercents = 0;
+            $quotaFreePercents = 100;
         } else {
             $quota_text = sprintf('%f %% ( ', $quota['percent']);
             if (intval($quota['used']) < 1024) {
@@ -61,11 +73,11 @@ class quota extends rcube_plugin
             }
 
             $quota_text .= (floatval($quota['total']) / 1024) . " MB )";
-        }
 
-        $quota1percent = floatval($quota['total']) / 100;
-        $quotaUsedPercents = floatval($quota['used']) / $quota1percent;
-        $quotaFreePercents = 100 - $quotaUsedPercents;
+            $quota1Percent = floatval($quota['total']) / 100;
+            $quotaUsedPercents = floatval($quota['used']) / $quota1Percent;
+            $quotaFreePercents = 100 - $quotaUsedPercents;
+        }
 
         $out = (
             html::div(
@@ -76,39 +88,92 @@ class quota extends rcube_plugin
                 ) .
                 html::div(
                     array('class' => 'boxcontent'),
-                    html::p(
-                        null,
-                        $this->gettext('space_used') . $quota_text
+                    // debug information
+                    (
+                        $this->config['debug'] ?
+                        html::p(
+                            array('id' => 'quotaPluginDebugInfo'),
+                            (
+                                'dump $this->config_file_loaded = ' . print_r($this->config_file_loaded, true) . '<br />' .
+                                'dump $quota = ' . print_r($quota, true)
+                            )
+                        ) : ''
                     ) .
-                    html::div(
-                        array('id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;'),
-                        ''
+                    // text reprecentation
+                    (
+                        $this->config['enable_text_presentation'] ?
+                        html::p(
+                            null,
+                            $this->gettext('space_used') . ': ' . $quota_text
+                        ) : ''
                     ) .
-                    html::div(
-                        array('id' => 'quotaUsedPercents', 'style' => 'display:none'),
-                        $quotaUsedPercents
+                    // chart reprecentation
+                    (
+                        $this->config['enable_chart_presentation'] ?
+                        html::p(
+                            array('id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;')
+                        ) .
+                        html::div(
+                            array('id' => 'quotaUsedPercents', 'style' => 'display: none;'),
+                            $quotaUsedPercents
+                        ) .
+                        html::div(
+                            array('id' => 'quotaFreePercents', 'style' => 'display: none;'),
+                            $quotaFreePercents
+                        ) .
+                        html::div(
+                            array('id' => 'labelUsedSpace', 'style' => 'display: none;'),
+                            $this->gettext('space_used')
+                        ) .
+                        html::div(
+                            array('id' => 'labelFreeSpace', 'style' => 'display: none;'),
+                            $this->gettext('space_free')
+                        ) : ''
                     ) .
-                    html::div(
-                        array('id' => 'quotaFreePercents', 'style' => 'display:none'),
-                        $quotaFreePercents
-                    ) .
-                    html::div(
-                        array('id' => 'usedSpace', 'style' => 'display:none'),
-                        $this->gettext('space_used')
-                    ) .
-                    html::div(
-                        array('id' => 'freeSpace', 'style' => 'display:none'),
-                        $this->gettext('space_free')
+                    // admin contact
+                    (
+                        $this->config['show_admin_contact'] ?
+                        html::p(
+                            null,
+                            sprintf($this->gettext('problem_please_contact'), $this->config['admin_contact'])
+                        ) : ''
                     )
                 )
             )
         );
 
-        if (isset($quota['total'])) {
-            $out .= '<script>drawDiskQuota();</script>';
+        if ($this->config['enable_chart_presentation']) {
+            $out .= sprintf(
+                '<script>var plugin_quota_chartTitle = "%s"; drawDiskQuota();</script>',
+                addslashes($this->gettext('chart_title'))
+            );
         }
 
         return $out;
+    }
+
+    protected function loadPluginConfigs()
+    {
+        $config_files = array(
+            __DIR__ . '/config.php',
+            __DIR__ . '/config.example.php', // fallback
+        );
+
+        $config = array();
+        $config_file_loaded = null;
+
+        foreach ($config_files as $config_file) {
+            if (is_file($config_file)) {
+                $config_file_loaded = $config_file;
+                $config = require $config_file;
+                break;
+            }
+        }
+
+        $this->config = $config;
+        $this->config_file_loaded = $config_file_loaded;
+
+        return $this;
     }
 
 }
