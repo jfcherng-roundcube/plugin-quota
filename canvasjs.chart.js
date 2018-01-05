@@ -1,23 +1,45 @@
 function drawDiskQuota() {
 
-    var quotaUsedPercents = document.getElementById('quotaUsedPercents').innerHTML;
-    var quotaFreePercents = document.getElementById('quotaFreePercents').innerHTML;
-    var labelUsedSpace = document.getElementById('labelUsedSpace').innerHTML;
-    var labelFreeSpace = document.getElementById('labelFreeSpace').innerHTML;
+    var decimalPoint = '.';
 
-    var chart = new CanvasJS.Chart("chartContainer", {
+    var isCommaAsDecimalPoint = function(str) {
+        var matches = str.match(/,/g);
+
+        return matches ? matches.length === 1 : false;
+    };
+
+    var getInnerNumberStringById = function(eleId) {
+        var text = document.getElementById(eleId).innerHTML;
+
+        // some country use comma as the decimal point
+        if (isCommaAsDecimalPoint(text)) {
+            decimalPoint = ',';
+            text = text.replace(',', '.');
+        } else {
+            text = text.replace(/,/g, '');
+        }
+
+        return text;
+    };
+
+    var quotaUsedPercents = getInnerNumberStringById('quotaUsedPercents');
+    var quotaFreePercents = getInnerNumberStringById('quotaFreePercents');
+    var labelUsedSpace = getInnerNumberStringById('labelUsedSpace');
+    var labelFreeSpace = getInnerNumberStringById('labelFreeSpace');
+
+    var chart = new CanvasJS.Chart('chartContainer', {
         animationEnabled: true,
         title: {
             text: plugin_quota_chartTitle
         },
         data: [{
-            type: "pie",
+            type: 'pie',
             startAngle: 275,
-            yValueFormatString: "##0.00\"%\"",
-            indexLabel: "{label} {y}",
+            yValueFormatString: decimalPoint === '.' ? '##0.00"%"' : '##0,00"%"',
+            indexLabel: '{label} {y}',
             dataPoints: [
-                {y: quotaUsedPercents, label: labelUsedSpace, color: "rgb(3,71,91)"},
-                {y: quotaFreePercents, label: labelFreeSpace, color: "rgb(199,227,239)"}
+                {y: quotaUsedPercents, label: labelUsedSpace, color: 'rgb(3,71,91)'},
+                {y: quotaFreePercents, label: labelFreeSpace, color: 'rgb(199,227,239)'}
             ]
         }]
     });
