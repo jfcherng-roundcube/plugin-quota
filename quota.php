@@ -1,18 +1,33 @@
 <?php
 
 /**
- * Original plugin creator:
  * @author jfcherng@gmail.com
- *
- * Added: usage pie-chart graphic, usage percent, documentation, BG translation:
+ *         The original author
  * @author Victor Kirov <victor.kirov.eu@gmail.com>
+ *         Add: usage pie-chart graphic,
+ *              usage percent,
+ *              documentation,
+ *              BG translation
  */
-
 class quota extends rcube_plugin
 {
+    /**
+     * @var string
+     */
     public $task = 'mail|settings';
 
+    /**
+     * The loaded configuration.
+     *
+     * @var array
+     */
     protected $config;
+
+    /**
+     * The loaded configuration file path.
+     *
+     * @var string
+     */
     protected $config_file_loaded;
 
     public function __construct($api)
@@ -25,8 +40,8 @@ class quota extends rcube_plugin
     public function init()
     {
         $this->add_texts('localization/', true);
-        $this->add_hook('quota', array($this, 'quota_message'));
-        $this->register_action('plugin.quota', array($this, 'quota_init'));
+        $this->add_hook('quota', [$this, 'quota_message']);
+        $this->register_action('plugin.quota', [$this, 'quota_init']);
         $this->include_script('quota.js');
         $this->include_script('canvasjs.min.js');
         $this->include_script('canvasjs.chart.js');
@@ -36,7 +51,7 @@ class quota extends rcube_plugin
     {
         $rc = rcmail::get_instance();
 
-        $this->register_handler('plugin.body', array($this, 'quota_form'));
+        $this->register_handler('plugin.body', [$this, 'quota_form']);
         $rc->output->set_pagetitle($this->gettext('quota_plugin_title'));
         $rc->output->send('plugin');
     }
@@ -66,33 +81,33 @@ class quota extends rcube_plugin
             $quotaFreePercents = 100;
         } else {
             $quota_text = sprintf('%f %% ( ', $quota['percent']);
-            if (intval($quota['used']) < 1024) {
-                $quota_text .= (round(floatval($quota['used']), 2)) . " KB of ";
+            if ((int) $quota['used'] < 1024) {
+                $quota_text .= (round((float) $quota['used'], 2)) . ' KB of ';
             } else {
-                $quota_text .= (round(floatval($quota['used']) / 1024, 2)) . " MB of ";
+                $quota_text .= (round((float) $quota['used'] / 1024, 2)) . ' MB of ';
             }
 
-            $quota_text .= (floatval($quota['total']) / 1024) . " MB )";
+            $quota_text .= ((float) $quota['total'] / 1024) . ' MB )';
 
-            $quota1Percent = floatval($quota['total']) / 100;
-            $quotaUsedPercents = floatval($quota['used']) / $quota1Percent;
+            $quota1Percent = (float) $quota['total'] / 100;
+            $quotaUsedPercents = (float) $quota['used'] / $quota1Percent;
             $quotaFreePercents = 100 - $quotaUsedPercents;
         }
 
         $out = (
             html::div(
-                array('class' => 'box'),
+                ['class' => 'box'],
                 html::div(
-                    array('id' => 'prefs-title', 'class' => 'boxtitle'),
+                    ['id' => 'prefs-title', 'class' => 'boxtitle'],
                     $form_title
                 ) .
                 html::div(
-                    array('class' => 'boxcontent'),
+                    ['class' => 'boxcontent'],
                     // debug information
                     (
                         $this->config['debug'] ?
                         html::p(
-                            array('id' => 'quotaPluginDebugInfo'),
+                            ['id' => 'quotaPluginDebugInfo'],
                             (
                                 'dump $this->config_file_loaded = ' . print_r($this->config_file_loaded, true) . '<br />' .
                                 'dump $quota = ' . print_r($quota, true)
@@ -111,22 +126,22 @@ class quota extends rcube_plugin
                     (
                         $this->config['enable_chart_presentation'] ?
                         html::p(
-                            array('id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;')
+                            ['id' => 'chartContainer', 'style' => 'height: 370px; width: 100%;']
                         ) .
                         html::div(
-                            array('id' => 'quotaUsedPercents', 'style' => 'display: none;'),
+                            ['id' => 'quotaUsedPercents', 'style' => 'display: none;'],
                             $quotaUsedPercents
                         ) .
                         html::div(
-                            array('id' => 'quotaFreePercents', 'style' => 'display: none;'),
+                            ['id' => 'quotaFreePercents', 'style' => 'display: none;'],
                             $quotaFreePercents
                         ) .
                         html::div(
-                            array('id' => 'labelUsedSpace', 'style' => 'display: none;'),
+                            ['id' => 'labelUsedSpace', 'style' => 'display: none;'],
                             $this->gettext('space_used')
                         ) .
                         html::div(
-                            array('id' => 'labelFreeSpace', 'style' => 'display: none;'),
+                            ['id' => 'labelFreeSpace', 'style' => 'display: none;'],
                             $this->gettext('space_free')
                         ) : ''
                     ) .
@@ -152,20 +167,26 @@ class quota extends rcube_plugin
         return $out;
     }
 
+    /**
+     * Loads plugin configs.
+     *
+     * @return self
+     */
     protected function loadPluginConfigs()
     {
-        $config_files = array(
+        $config_files = [
             __DIR__ . '/config.php',
             __DIR__ . '/config.example.php', // fallback
-        );
+        ];
 
-        $config = array();
+        $config = [];
         $config_file_loaded = null;
 
         foreach ($config_files as $config_file) {
             if (is_file($config_file)) {
                 $config_file_loaded = $config_file;
                 $config = require $config_file;
+
                 break;
             }
         }
@@ -175,5 +196,4 @@ class quota extends rcube_plugin
 
         return $this;
     }
-
 }

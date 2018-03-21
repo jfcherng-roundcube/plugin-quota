@@ -1,17 +1,25 @@
 # QUOTA PLUGIN FOR ROUNDCUBE
 
-## What is Quota plugin ?
+
+## Requirement
+
+- PHP >= 5.4.0
+- Roundcube >= untested
+
+
+## What is Quota plugin?
 
 Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 *used space* and *free space* for given mailbox.
 
-![](doc/screenshot/1.png)
+![](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/1.png)
 
 
-## How to install this plugin in Rouncube ?
+## How to install this plugin in Roundcube?
 
 1. Create folder `quota` in `ROUNDCUBE_HOME/plugins` if it does not exist.
 2. Copy all plugin files there.
+
 3. Copy `config.example.php` to `config.php` and edit `config.php` if you want.
 ```php
 <?php
@@ -32,6 +40,7 @@ return array(
 
 );
 ```
+
 4. Edit `ROUNDCUBE_HOME/conf/config.inc.php` locate `$config['plugins']` and add `'quota',` there:
 ```php
 <?php
@@ -45,7 +54,7 @@ $config['plugins'] = array(
 ```
 
 
-## How to set mailbox quota in Dovecot ?
+## How to set mailbox quota in Dovecot?
 
 ```bash
 sudo nano /etc/dovecot/conf.d/90-quota.conf
@@ -61,6 +70,6 @@ sudo service dovecot restart
 ```
 
 
-## How to set mailbox quota in Postfix ?
+## How to set mailbox quota in Postfix?
 
 :octocat: Victor Kirov

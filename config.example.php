@@ -1,7 +1,6 @@
 <?php
 
-return array(
-
+return [
     // enable debug mode for development?
     'debug' => false,
     // admin contact information
@@ -13,5 +12,4 @@ return array(
     'enable_chart_presentation' => true,
     // enable text presentation
     'enable_text_presentation' => true,
-
-);
+];

@@ -6,7 +6,7 @@ $config = PhpCsFixer\Config::create()
     ->setCacheFile(__DIR__ . '/.php_cs.cache')
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP71Migration' => true,
+        // '@PHP71Migration' => true,
         '@PSR2' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
