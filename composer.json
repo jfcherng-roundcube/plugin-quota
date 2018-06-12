@@ -1,4 +1,7 @@
 {
+    "name": "jfcherng/roundcube-quota-plugin",
+    "description": "A plugin that shows quota information for Roundcube.",
+    "type": "plugin",
     "require": {
         "php": "^5.4.0 || ^7.0.0"
     },

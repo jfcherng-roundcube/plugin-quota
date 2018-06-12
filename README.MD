@@ -1,7 +1,7 @@
-# QUOTA PLUGIN FOR ROUNDCUBE
+A plugin that shows quota information for Roundcube.
 
 
-## Requirement
+## Requirements
 
 - PHP >= 5.4.0
 - Roundcube >= untested
@@ -12,7 +12,7 @@
 Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 *used space* and *free space* for given mailbox.
 
-![](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/1.png)
+![](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/demo.png)
 
 
 ## How to install this plugin in Roundcube?
