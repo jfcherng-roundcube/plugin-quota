@@ -1,5 +1,7 @@
 <?php
-$labels = array();
+
+$labels = [];
+
 $labels['quota_plugin_title'] = 'Квота на пощенската кутия';
 $labels['chart_title'] = 'Използвано пространство';
 $labels['space_used'] = 'Използвано пространство';

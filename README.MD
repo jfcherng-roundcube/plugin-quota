@@ -24,8 +24,7 @@ Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 ```php
 <?php
 
-return array(
-
+$config = [
     // enable debug mode for development?
     'debug' => false,
     // admin contact information
@@ -37,8 +36,7 @@ return array(
     'enable_chart_presentation' => true,
     // enable text presentation
     'enable_text_presentation' => true,
-
-);
+];
 ```
 
 4. Edit `ROUNDCUBE_HOME/conf/config.inc.php` locate `$config['plugins']` and add `'quota',` there:

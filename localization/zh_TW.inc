@@ -1,5 +1,7 @@
 <?php
-$labels = array();
+
+$labels = [];
+
 $labels['quota_plugin_title'] = '磁碟使用資訊';
 $labels['chart_title'] = '空間分布圖';
 $labels['space_used'] = '已使用空間';
