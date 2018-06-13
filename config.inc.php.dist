@@ -1,6 +1,6 @@
 <?php
 
-return [
+$config = [
     // enable debug mode for development?
     'debug' => false,
     // admin contact information

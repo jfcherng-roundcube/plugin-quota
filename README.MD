@@ -20,7 +20,7 @@ Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 1. Create folder `quota` in `ROUNDCUBE_HOME/plugins` if it does not exist.
 2. Copy all plugin files there.
 
-3. Copy `config.example.php` to `config.php` and edit `config.php` if you want.
+3. Copy `config.inc.php.dist` to `config.inc.php` and edit `config.inc.php` if you want.
 ```php
 <?php
 

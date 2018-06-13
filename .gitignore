@@ -12,4 +12,4 @@ composer.lock
 vendor/
 
 # ...
-config.php
+config.inc.php

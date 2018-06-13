@@ -21,23 +21,16 @@ class quota extends rcube_plugin
      *
      * @var array
      */
-    protected $config;
-
-    /**
-     * The loaded configuration file path.
-     *
-     * @var string
-     */
-    protected $configFileLoaded;
+    protected $config = [];
 
     /**
      * {@inheritdoc}
      */
     public function init()
     {
-        $this->loadPluginConfigs();
+        $this->loadPluginConfig();
 
-        $this->add_texts('lang/', true);
+        $this->add_texts('localization/', true);
         $this->add_hook('quota', [$this, 'quotaMessage']);
 
         $this->register_action('plugin.quota', [$this, 'quotaInit']);
@@ -112,7 +105,6 @@ class quota extends rcube_plugin
                             html::p(
                                 ['id' => 'quotaPluginDebugInfo'],
                                 (
-                                    'dump $this->configFileLoaded = ' . print_r($this->configFileLoaded, true) . '<br />' .
                                     'dump $quota = ' . print_r($quota, true)
                                 )
                             ) : ''
@@ -178,31 +170,22 @@ class quota extends rcube_plugin
     }
 
     /**
-     * Loads plugin configs.
+     * Load plugin configuration.
      *
      * @return self
      */
-    protected function loadPluginConfigs()
+    protected function loadPluginConfig()
     {
-        $configFiles = [
-            __DIR__ . '/config.php',
-            __DIR__ . '/config.example.php', // fallback
-        ];
+        $rc = rcmail::get_instance();
 
-        $config = [];
-        $configFileLoaded = null;
+        $userPerf = $this->load_config('config.inc.php')
+            ? $rc->config->all()
+            : [];
 
-        foreach ($configFiles as $configFile) {
-            if (is_file($configFile)) {
-                $configFileLoaded = $configFile;
-                $config = require $configFile;
+        $this->load_config('config.inc.php.dist');
+        $rc->config->merge($userPerf);
 
-                break;
-            }
-        }
-
-        $this->config = $config;
-        $this->configFileLoaded = $configFileLoaded;
+        $this->config = $rc->config->all();
 
         return $this;
     }
