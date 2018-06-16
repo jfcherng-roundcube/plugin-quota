@@ -1,14 +1,5 @@
 <?php
 
-/**
- * @author jfcherng@gmail.com
- *         The original author
- * @author Victor Kirov <victor.kirov.eu@gmail.com>
- *         Add: usage pie-chart graphic,
- *              usage percent,
- *              documentation,
- *              BG translation
- */
 class quota extends rcube_plugin
 {
     /**
