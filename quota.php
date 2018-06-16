@@ -26,8 +26,8 @@ class quota extends rcube_plugin
 
         $this->register_action('plugin.quota', [$this, 'quotaInit']);
 
-        $this->include_script('js/quota_sidebar.js');
-        $this->include_script('js/echarts.common.min.js');
+        $this->include_script('js/settings_sidebar.js');
+        $this->include_script('js/echarts-4.1.0.rc2.common.min.js');
         $this->include_script('js/draw.js');
     }
 
