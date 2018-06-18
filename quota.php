@@ -2,6 +2,12 @@
 
 class quota extends rcube_plugin
 {
+    const ONE_KB = 1;
+    const ONE_MB = 1024;
+    const ONE_GB = 1048576;
+    const ONE_TB = 1073741824;
+    const ONE_PB = INF;
+
     /**
      * @var string
      */
@@ -78,7 +84,7 @@ class quota extends rcube_plugin
         } else {
             $quotaText = $this->gettext('unknown');
             $quotaUsedKb = 0;
-            $quotaFreeKb = pow(1024, 3); // 1TB
+            $quotaFreeKb = static::ONE_PB;
         }
 
         $out = (
@@ -143,21 +149,27 @@ class quota extends rcube_plugin
         return $out;
     }
 
-    protected function humanizeKbQuota($quota)
+    protected function humanizeKbQuota($quota, $round = 2)
     {
         $quota = (float) $quota;
 
-        $units = ['KB', 'MB', 'GB', 'TB', 'PB'];
+        $units = [
+            'PB' => static::ONE_PB,
+            'TB' => static::ONE_TB,
+            'GB' => static::ONE_GB,
+            'MB' => static::ONE_MB,
+            'KB' => static::ONE_KB,
+        ];
 
-        foreach ($units as $unit) {
-            if ($quota < 1024) {
-                return "{$quota} {$unit}";
+        $partition = [static::ONE_KB, 'KB'];
+        foreach ($units as $unit => $size) {
+            if ($quota >= $size) {
+                $partition = [$size, $unit];
+                break;
             }
-
-            $quota = round($quota / 1024, 2);
         }
 
-        return $quota * 1024 . ' ' . end($units);
+        return round($quota / $partition[0], $round) . " {$partition[1]}";
     }
 
     /**
