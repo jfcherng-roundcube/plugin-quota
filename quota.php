@@ -22,9 +22,9 @@ class quota extends rcube_plugin
         $this->loadPluginConfig();
 
         $this->add_texts('localization/', true);
-        $this->add_hook('quota', [$this, 'quotaMessage']);
+        $this->add_hook(__CLASS__, [$this, 'quotaMessage']);
 
-        $this->register_action('plugin.quota', [$this, 'quotaInit']);
+        $this->register_action('plugin.' . __CLASS__, [$this, 'quotaInit']);
 
         $this->include_script('js/settings_sidebar.js');
         $this->include_script('js/echarts-4.1.0.rc2.common.min.js');
