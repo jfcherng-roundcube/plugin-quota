@@ -3,6 +3,10 @@ VERSION 0  INIT
 ===============
 
    Version 0.0 - init
+      29/12/2018 10:47  0.0.7  chartjs
+         dc1df7e Replace echarts with chartjs
+         4bced21 Update README
+         2763d0f Rename CHANGELOG.md -> CHANGELOG
       06/08/2018 14:52  0.0.6  echarts 4.1.0
          91fdba7 Update echarts 4.1.0
       04/07/2018 15:52  0.0.5  initial release
