@@ -33,7 +33,7 @@ class quota extends rcube_plugin
         $this->register_action('plugin.' . __CLASS__, [$this, 'quotaInit']);
 
         $this->include_script('js/settings_sidebar.js');
-        $this->include_script('js/echarts-4.1.0.common.min.js');
+        $this->include_script('js/Chart-2.7.3.min.js');
         $this->include_script('js/draw.js');
     }
 
@@ -73,18 +73,27 @@ class quota extends rcube_plugin
         $quota = $rc->get_storage()->get_quota();
 
         if (isset($quota['total'])) {
-            $quotaText = sprintf(
-                '%.2f%% ( %s of %s )',
-                $quota['percent'],
-                $this->humanizeKbQuota($quota['used']),
-                $this->humanizeKbQuota($quota['total'])
-            );
             $quotaUsedKb = $quota['used'];
             $quotaFreeKb = $quota['total'] - $quota['used'];
         } else {
-            $quotaText = $this->gettext('unknown');
             $quotaUsedKb = 0;
             $quotaFreeKb = static::ONE_PB;
+        }
+
+        $quotaTotalKb = $quotaUsedKb + $quotaFreeKb;
+        $quotaUsedHumanized = $this->humanizeKbQuota($quotaUsedKb);
+        $quotaFreeHumanized = $this->humanizeKbQuota($quotaFreeKb);
+        $quotaTotalHumanized = $this->humanizeKbQuota($quotaTotalKb);
+
+        if (isset($quota['total'])) {
+            $quotaText = sprintf(
+                '%.2f%% ( %s of %s )',
+                $quota['percent'],
+                $quotaUsedHumanized,
+                $quotaTotalHumanized
+            );
+        } else {
+            $quotaText = $this->gettext('unknown');
         }
 
         $out = (
@@ -116,10 +125,9 @@ class quota extends rcube_plugin
                     ) .
                     // chart reprecentation
                     (
-                        $this->config['enable_chart_presentation'] ?
-                            html::p(
-                                ['id' => 'chartContainer', 'style' => 'height: 370px; width: 100%; max-width: 600px;']
-                            ) : ''
+                        $this->config['enable_chart_presentation']
+                            ? '<canvas id="chartContainer" style="height: 370px; width: 100%; max-width: 600px;"></canvas>'
+                            : ''
                     ) .
                     // admin contact
                     (
@@ -133,15 +141,21 @@ class quota extends rcube_plugin
             )
         );
 
+        $jsVars = [
+            'charTitle' => $this->gettext('chart_title'),
+            'labelUsedSpace' => $this->gettext('space_used'),
+            'labelFreeSpace' => $this->gettext('space_free'),
+            'quotaUsedKb' => $quotaUsedKb,
+            'quotaFreeKb' => $quotaFreeKb,
+            'quotaTotalKb' => $quotaTotalKb,
+            'quotaUsedHumanized' => $quotaUsedHumanized,
+            'quotaFreeHumanized' => $quotaFreeHumanized,
+            'quotaTotalHumanized' => $quotaTotalHumanized,
+        ];
+
         $out .= $this->config['enable_chart_presentation'] ?
             '<script>
-                var plugin_quota_chart_vars = {
-                    charTitle: "' . addslashes($this->gettext('chart_title')) . '",
-                    labelUsedSpace: "' . addslashes($this->gettext('space_used')) . '",
-                    labelFreeSpace: "' . addslashes($this->gettext('space_free')) . '",
-                    quotaUsedKb: ' . $quotaUsedKb . ',
-                    quotaFreeKb: ' . $quotaFreeKb . '
-                };
+                var plugin_quota_chart_vars = ' . json_encode($jsVars, JSON_UNESCAPED_UNICODE) . ';
 
                 drawDiskQuota();
             </script>' : '';

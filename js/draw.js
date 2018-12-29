@@ -1,47 +1,61 @@
 function drawDiskQuota() {
-  var quota_chart = echarts.init(document.getElementById('chartContainer'));
+  var ctx = document.getElementById('chartContainer').getContext('2d');
 
-  quota_chart.setOption({
-    title: {
-      text: plugin_quota_chart_vars.chartTitle,
-      x: 'center'
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter: "{b} : {c} KB ({d}%)"
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'right',
-      data: [
+  var colors = {
+    blue: 'rgb(54, 162, 235)',
+    green: 'rgb(75, 192, 192)',
+    grey: 'rgb(201, 203, 207)',
+    orange: 'rgb(255, 159, 64)',
+    purple: 'rgb(153, 102, 255)',
+    red: 'rgb(255, 99, 132)',
+    yellow: 'rgb(255, 205, 86)'
+  };
+
+  var config = {
+    type: 'pie',
+    data: {
+      datasets: [{
+        data: [
+          plugin_quota_chart_vars.quotaUsedKb,
+          plugin_quota_chart_vars.quotaFreeKb
+        ],
+        backgroundColor: [
+          colors.red,
+          colors.green
+        ],
+        label: plugin_quota_chart_vars.charTitle
+      }],
+      labels: [
         plugin_quota_chart_vars.labelUsedSpace,
         plugin_quota_chart_vars.labelFreeSpace
       ]
     },
-    series: [{
-      name: 'SeriesName',
-      type: 'pie',
-      radius: '70%',
-      center: ['45%', '50%'],
-      data: [{
-        value: plugin_quota_chart_vars.quotaUsedKb,
-        name: plugin_quota_chart_vars.labelUsedSpace
-      }, {
-        value: plugin_quota_chart_vars.quotaFreeKb,
-        name: plugin_quota_chart_vars.labelFreeSpace
-      }],
-      itemStyle: {
-        emphasis: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
+    options: {
+      responsive: true,
+      tooltips: {
+        enabled: true,
+        callbacks: {
+          label: function(tooltipItem, data) {
+            // console.log(tooltipItem, data);
+
+            var title = data.labels[tooltipItem.index];
+
+            var spaceHumanized = tooltipItem.index === 0
+              ? plugin_quota_chart_vars.quotaUsedHumanized
+              : plugin_quota_chart_vars.quotaFreeHumanized;
+
+            var spaceKb = tooltipItem.index === 0
+              ? plugin_quota_chart_vars.quotaUsedKb
+              : plugin_quota_chart_vars.quotaFreeKb;
+
+            var spacePercentage = spaceKb / plugin_quota_chart_vars.quotaTotalKb * 100;
+
+            return title + ' ' + spaceHumanized + ' ( ' + spacePercentage.toFixed(2) + '% )';
+          }
         }
       }
-    }]
-  });
+    }
+  };
 
-  // responsive when the window get resized
-  window.addEventListener("resize", function() {
-    quota_chart.resize();
-  });
+  window.myPieChart = new Chart(ctx, config);
 }
