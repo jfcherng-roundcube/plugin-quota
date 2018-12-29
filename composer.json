@@ -4,7 +4,7 @@
     "type": "roundcube-plugin",
     "license": "MIT",
     "homepage": "https://github.com/jfcherng/roundcube-quota-plugin",
-    "version": "0.0.6",
+    "version": "0.0.8",
     "authors": [
         {
             "name": "Jack Cherng",
@@ -19,7 +19,7 @@
         "php": "^5.4.0 || ^7.0.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "~2.2.0"
+        "friendsofphp/php-cs-fixer": "^2.2.0"
     },
     "config": {
         "sort-packages": true
