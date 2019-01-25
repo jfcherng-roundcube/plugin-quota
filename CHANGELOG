@@ -3,6 +3,9 @@ VERSION 0  INIT
 ===============
 
    Version 0.0 - init
+      26/01/2019 00:50  0.0.9  nits
+         b150b1b Correct settings sidebar
+         c8b7cc4 year++
       29/12/2018 10:50  0.0.8  nits
          c53ac25 Bump version
       29/12/2018 10:47  0.0.7  chartjs

@@ -41,8 +41,8 @@ final class quota extends rcube_plugin
     {
         $args['actions'][] = [
             'action' => 'plugin.' . __CLASS__,
-            'class'  => 'quota',
-            'label'  => 'quota_plugin_title',
+            'class' => 'quota',
+            'label' => 'quota_plugin_title',
             'domain' => 'quota',
         ];
 
