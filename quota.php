@@ -1,6 +1,6 @@
 <?php
 
-class quota extends rcube_plugin
+final class quota extends rcube_plugin
 {
     const ONE_KB = 1;
     const ONE_MB = 1024;
@@ -18,7 +18,7 @@ class quota extends rcube_plugin
      *
      * @var array
      */
-    protected $config = [];
+    private $config = [];
 
     /**
      * {@inheritdoc}
@@ -28,13 +28,25 @@ class quota extends rcube_plugin
         $this->loadPluginConfig();
 
         $this->add_texts('localization/', true);
-        $this->add_hook(__CLASS__, [$this, 'quotaMessage']);
+        $this->add_hook('quota', [$this, 'quotaMessage']);
+        $this->add_hook('settings_actions', [$this, 'settingsActions']);
 
         $this->register_action('plugin.' . __CLASS__, [$this, 'quotaInit']);
 
-        $this->include_script('js/settings_sidebar.js');
         $this->include_script('js/Chart-2.7.3.min.js');
         $this->include_script('js/draw.js');
+    }
+
+    public function settingsActions(array $args)
+    {
+        $args['actions'][] = [
+            'action' => 'plugin.' . __CLASS__,
+            'class'  => 'quota',
+            'label'  => 'quota_plugin_title',
+            'domain' => 'quota',
+        ];
+
+        return $args;
     }
 
     public function quotaInit()
@@ -163,7 +175,7 @@ class quota extends rcube_plugin
         return $out;
     }
 
-    protected function humanizeKbQuota($quota, $round = 2)
+    private function humanizeKbQuota($quota, $round = 2)
     {
         $quota = (float) $quota;
 
@@ -191,7 +203,7 @@ class quota extends rcube_plugin
      *
      * @return self
      */
-    protected function loadPluginConfig()
+    private function loadPluginConfig()
     {
         $rc = rcmail::get_instance();
 
