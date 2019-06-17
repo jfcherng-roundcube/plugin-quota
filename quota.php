@@ -110,7 +110,7 @@ final class quota extends rcube_plugin
 
         $out = (
             html::div(
-                ['class' => 'box'],
+                ['class' => 'box contentbox'],
                 html::div(
                     ['id' => 'prefs-title', 'class' => 'boxtitle'],
                     $this->gettext('quota_plugin_title')
@@ -171,6 +171,8 @@ final class quota extends rcube_plugin
 
                 drawDiskQuota();
             </script>' : '';
+
+        $out = '<style> .contentbox { overflow: auto; } </style>' . $out;
 
         return $out;
     }
