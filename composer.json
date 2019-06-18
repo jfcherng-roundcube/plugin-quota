@@ -4,7 +4,7 @@
     "type": "roundcube-plugin",
     "license": "MIT",
     "homepage": "https://github.com/jfcherng/roundcube-quota-plugin",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "authors": [
         {
             "name": "Jack Cherng",
