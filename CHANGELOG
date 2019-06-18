@@ -3,6 +3,10 @@ VERSION 0  INIT
 ===============
 
    Version 0.0 - init
+      19/06/2019 02:46  0.0.11  RoundCube plugin installer
+         ff5ec59 Bump version
+         8754c0d Update composer.json for RoundCube plugin installer
+         6009b9e Release of new version 0.0.10
       18/06/2019 21:47  0.0.10  fix layout overflow
          df58d87 Fix layout overflow
       26/01/2019 00:50  0.0.9  nits
