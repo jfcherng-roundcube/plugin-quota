@@ -3,6 +3,8 @@ VERSION 0  INIT
 ===============
 
    Version 0.0 - init
+      18/06/2019 21:47  0.0.10  fix layout overflow
+         df58d87 Fix layout overflow
       26/01/2019 00:50  0.0.9  nits
          b150b1b Correct settings sidebar
          c8b7cc4 year++
