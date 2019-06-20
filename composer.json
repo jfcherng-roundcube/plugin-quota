@@ -3,7 +3,7 @@
     "description": "A plugin that shows quota information for Roundcube.",
     "type": "roundcube-plugin",
     "license": "MIT",
-    "homepage": "https://github.com/jfcherng/roundcube-quota-plugin",
+    "homepage": "https://github.com/jfcherng/roundcube-plugin-quota",
     "version": "0.0.12",
     "authors": [
         {
