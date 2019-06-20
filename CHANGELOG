@@ -3,6 +3,10 @@ VERSION 0  INIT
 ===============
 
    Version 0.0 - init
+      20/06/2019 08:51  0.0.12  Fix composer package:
+         9950b66 Update readme
+         cb6ba19 Code tidy
+         287d010 Try to fix installation via composer
       19/06/2019 02:46  0.0.11  RoundCube plugin installer
          ff5ec59 Bump version
          8754c0d Update composer.json for RoundCube plugin installer
