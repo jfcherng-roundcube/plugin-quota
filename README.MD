@@ -4,7 +4,7 @@ A plugin that shows quota information with a pie chart for Roundcube.
 ## Requirements
 
 - PHP: >= `5.4.0`
-- Roundcube: only tested for `1.1.x` but others may work as well.
+- Roundcube: I only tested this plugin with `1.1.12`, `1.3.9` and `1.4-rc1`
 
 
 ## What is Quota plugin?
@@ -17,29 +17,21 @@ Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 
 ## How to install this plugin in Roundcube?
 
+
+### Install via Composer
+
+This plugin has been [published](https://plugins.roundcube.net/packages/jfcherng/quota) on the official Roundcube plugin repository.
+
+1. Go to your `ROUNDCUBE_HOME` (i.e., the root directory of your Roundcube).
+2. Run `$ composer require jfcherng/quota`.
+3. You may edit the `config.inc.php` under this plugin's directory if you want to do some configurations.
+
+
+### Install manually
+
 1. Create folder `quota` in `ROUNDCUBE_HOME/plugins` if it does not exist.
 2. Copy all plugin files there.
-
 3. Copy `config.inc.php.dist` to `config.inc.php` and edit `config.inc.php` if you want.
-
-```php
-<?php
-
-$config = [
-    // enable debug mode for development?
-    'debug' => false,
-    // admin contact information
-    'admin_contact' => '<a href="mailto:opr@ee.nthu.edu.tw">opr@ee.nthu.edu.tw</a>',
-    // show the admin contact information on the plugin page
-    'show_admin_contact' => false,
-
-    // enable chart presentation
-    'enable_chart_presentation' => true,
-    // enable text presentation
-    'enable_text_presentation' => true,
-];
-```
-
 4. Edit `ROUNDCUBE_HOME/conf/config.inc.php` locate `$config['plugins']` and add `'quota',` there:
 
 ```php
