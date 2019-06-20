@@ -16,28 +16,28 @@ final class quota extends rcube_plugin
     /**
      * The loaded configuration.
      *
-     * @var array
+     * @var rcube_config
      */
-    private $config = [];
+    private $config;
 
     /**
      * {@inheritdoc}
      */
     public function init()
     {
-        $this->loadPluginConfig();
+        $this->load_plugin_config();
 
         $this->add_texts('localization/', true);
-        $this->add_hook('quota', [$this, 'quotaMessage']);
-        $this->add_hook('settings_actions', [$this, 'settingsActions']);
+        $this->add_hook('quota', [$this, 'quota_message']);
+        $this->add_hook('settings_actions', [$this, 'settings_actions']);
 
-        $this->register_action('plugin.' . __CLASS__, [$this, 'quotaInit']);
+        $this->register_action('plugin.' . __CLASS__, [$this, 'quota_init']);
 
         $this->include_script('js/Chart-2.7.3.min.js');
         $this->include_script('js/draw.js');
     }
 
-    public function settingsActions(array $args)
+    public function settings_actions(array $args)
     {
         $args['actions'][] = [
             'action' => 'plugin.' . __CLASS__,
@@ -49,17 +49,17 @@ final class quota extends rcube_plugin
         return $args;
     }
 
-    public function quotaInit()
+    public function quota_init()
     {
         $rc = rcmail::get_instance();
 
-        $this->register_handler('plugin.body', [$this, 'quotaForm']);
+        $this->register_handler('plugin.body', [$this, 'quota_form']);
 
         $rc->output->set_pagetitle($this->gettext('quota_plugin_title'));
         $rc->output->send('plugin');
     }
 
-    public function quotaMessage(array $args)
+    public function quota_message(array $args)
     {
         $rc = rcmail::get_instance();
 
@@ -73,12 +73,13 @@ final class quota extends rcube_plugin
         foreach ($thresholds as $percent => $level) {
             if ($args['percent'] >= $percent) {
                 $rc->output->show_message($this->gettext("quota_meet_{$percent}"), $level);
+
                 break;
             }
         }
     }
 
-    public function quotaForm()
+    public function quota_form()
     {
         $rc = rcmail::get_instance();
 
@@ -89,13 +90,13 @@ final class quota extends rcube_plugin
             $quotaFreeKb = $quota['total'] - $quota['used'];
         } else {
             $quotaUsedKb = 0;
-            $quotaFreeKb = static::ONE_PB;
+            $quotaFreeKb = self::ONE_PB;
         }
 
         $quotaTotalKb = $quotaUsedKb + $quotaFreeKb;
-        $quotaUsedHumanized = $this->humanizeKbQuota($quotaUsedKb);
-        $quotaFreeHumanized = $this->humanizeKbQuota($quotaFreeKb);
-        $quotaTotalHumanized = $this->humanizeKbQuota($quotaTotalKb);
+        $quotaUsedHumanized = $this->humanize_kb_quota($quotaUsedKb);
+        $quotaFreeHumanized = $this->humanize_kb_quota($quotaFreeKb);
+        $quotaTotalHumanized = $this->humanize_kb_quota($quotaTotalKb);
 
         if (isset($quota['total'])) {
             $quotaText = sprintf(
@@ -119,7 +120,7 @@ final class quota extends rcube_plugin
                     ['class' => 'boxcontent'],
                     // debug information
                     (
-                        $this->config['debug'] ?
+                        $this->config->get('debug') ?
                             html::p(
                                 ['id' => 'quotaPluginDebugInfo'],
                                 (
@@ -129,7 +130,7 @@ final class quota extends rcube_plugin
                     ) .
                     // text reprecentation
                     (
-                        $this->config['enable_text_presentation'] ?
+                        $this->config->get('enable_text_presentation') ?
                             html::p(
                                 null,
                                 $this->gettext('space_used') . ': ' . $quotaText
@@ -137,16 +138,16 @@ final class quota extends rcube_plugin
                     ) .
                     // chart reprecentation
                     (
-                        $this->config['enable_chart_presentation']
+                        $this->config->get('enable_chart_presentation')
                             ? '<canvas id="chartContainer" style="height: 370px; width: 100%; max-width: 600px;"></canvas>'
                             : ''
                     ) .
                     // admin contact
                     (
-                        $this->config['show_admin_contact'] ?
+                        $this->config->get('show_admin_contact') ?
                             html::p(
                                 null,
-                                sprintf($this->gettext('problem_please_contact'), $this->config['admin_contact'])
+                                sprintf($this->gettext('problem_please_contact'), $this->config->get('admin_contact'))
                             ) : ''
                     )
                 )
@@ -165,7 +166,7 @@ final class quota extends rcube_plugin
             'quotaTotalHumanized' => $quotaTotalHumanized,
         ];
 
-        $out .= $this->config['enable_chart_presentation'] ?
+        $out .= $this->config->get('enable_chart_presentation') ?
             '<script>
                 var plugin_quota_chart_vars = ' . json_encode($jsVars, JSON_UNESCAPED_UNICODE) . ';
 
@@ -177,19 +178,19 @@ final class quota extends rcube_plugin
         return $out;
     }
 
-    private function humanizeKbQuota($quota, $round = 2)
+    private function humanize_kb_quota($quota, $round = 2)
     {
         $quota = (float) $quota;
 
         $units = [
-            'PB' => static::ONE_PB,
-            'TB' => static::ONE_TB,
-            'GB' => static::ONE_GB,
-            'MB' => static::ONE_MB,
-            'KB' => static::ONE_KB,
+            'PB' => self::ONE_PB,
+            'TB' => self::ONE_TB,
+            'GB' => self::ONE_GB,
+            'MB' => self::ONE_MB,
+            'KB' => self::ONE_KB,
         ];
 
-        $partition = [static::ONE_KB, 'KB'];
+        $partition = [self::ONE_KB, 'KB'];
         foreach ($units as $unit => $size) {
             if ($quota >= $size) {
                 $partition = [$size, $unit];
@@ -202,22 +203,14 @@ final class quota extends rcube_plugin
 
     /**
      * Load plugin configuration.
-     *
-     * @return self
      */
-    private function loadPluginConfig()
+    private function load_plugin_config()
     {
-        $rc = rcmail::get_instance();
-
-        $userPerf = $this->load_config('config.inc.php')
-            ? $rc->config->all()
-            : [];
+        $rcmail = rcmail::get_instance();
 
         $this->load_config('config.inc.php.dist');
-        $rc->config->merge($userPerf);
+        $this->load_config('config.inc.php');
 
-        $this->config = $rc->config->all();
-
-        return $this;
+        $this->config = $rcmail->config;
     }
 }
