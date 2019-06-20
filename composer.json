@@ -1,5 +1,5 @@
 {
-    "name": "jfcherng/roundcube-quota-plugin",
+    "name": "jfcherng/quota",
     "description": "A plugin that shows quota information for Roundcube.",
     "type": "roundcube-plugin",
     "license": "MIT",
