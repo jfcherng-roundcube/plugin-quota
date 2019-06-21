@@ -178,7 +178,7 @@ final class quota extends rcube_plugin
      */
     private function add_plugin_assets()
     {
-        $this->include_stylesheet($this->local_skin_path() . '/' . __CLASS__ . '.css');
+        $this->include_stylesheet($this->local_skin_path() . '/main.css');
 
         $this->include_script('js/Chart-2.7.3.min.js');
         $this->include_script('js/draw.min.js');
