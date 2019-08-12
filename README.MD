@@ -1,3 +1,5 @@
+# Roundcube Plugin: Quota
+
 A plugin that shows quota information with a pie chart for Roundcube.
 
 
@@ -20,7 +22,7 @@ Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 
 ### Install via Composer
 
-This plugin has been [published](https://plugins.roundcube.net/packages/jfcherng/quota) on the official Roundcube plugin repository.
+This plugin has been published on [the official Roundcube plugin repository](https://plugins.roundcube.net) by the name of [jfcherng/quota](https://plugins.roundcube.net/packages/jfcherng/quota).
 
 1. Go to your `ROUNDCUBE_HOME` (i.e., the root directory of your Roundcube).
 2. Run `$ composer require jfcherng/quota`.
