@@ -1,12 +1,19 @@
 # Roundcube Plugin: Quota
 
+<a href="https://plugins.roundcube.net/packages/jfcherng/quota"><img alt="Roundcube Plugins" src="https://img.shields.io/badge/dynamic/json?label=downloads&query=$.package.downloads.total&url=https://plugins.roundcube.net/packages/jfcherng/quota.json"></a>
+<a href="https://github.com/jfcherng/roundcube-plugin-quota/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/jfcherng/roundcube-plugin-quota?logo=github"></a>
+<a href="https://github.com/jfcherng/roundcube-plugin-quota/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/jfcherng/roundcube-plugin-quota"></a>
+<a href="https://github.com/jfcherng/roundcube-plugin-quota/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/jfcherng/roundcube-plugin-quota?logo=github"></a>
+<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+
 A plugin that shows quota information with a pie chart for Roundcube.
 
 
 ## Requirements
 
+I only test this plugin with following environments. Other setup may work with luck.
+
 - PHP: >= `5.4.0`
-- Roundcube: I only tested this plugin with `1.1.12`, `1.3.9` and `1.4-rc1`
 
 
 ## What is Quota plugin?
@@ -51,7 +58,7 @@ $config['plugins'] = array(
 ## How to set mailbox quota in Dovecot?
 
 ```bash
-sudo vim /etc/dovecot/conf.d/90-quota.conf
+$ sudo vim /etc/dovecot/conf.d/90-quota.conf
 ```
 
 ```
@@ -64,16 +71,10 @@ sudo vim /etc/dovecot/conf.d/90-quota.conf
 ```
 
 ```bash
-sudo service dovecot restart
+$ sudo service dovecot restart
 ```
 
 
 ## How to set mailbox quota in Postfix?
 
-*Feel free to finish this section and submit a Pull Request.*
-
-
-Supporters <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
-==========
-
-Thank you guys for sending me some cups of coffee.
+*Feel free to finish this section by submitting a Pull Request.*
