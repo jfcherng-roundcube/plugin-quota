@@ -2,6 +2,24 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2020-02-06 16:01  **0.0.14**  Add translation: pl_PL (Polish)
+      * 6ac38b7 Re-compile assets
+      * 9f43bcf Update deps
+      * aa4b427 Add translation: pl_PL (Polish)
+      * 63a4da8 $ chmod a+x compile.sh
+      * 23e3d3a Update readme to use badges from shields.io
+      * 4f35a27 Re-compile assets
+      * d17102a Update deps
+      * 7e37ca3 Fix compile.sh cleancss flag
+      * a837665 Fix readme file name extension
+      * b9e76fe Update readme
+      * 802053a Update deps
+      * c51cad8 Fix the compilation flows of JS files
+      * b8ad20f Simplify LESS codes
+      * cc5da3a Add liip/rmt as a dev dep to composer.json
+      * f30b571 Update deps
+      * 946e39b Fix compilation stopped when an input .less file is empty
+      * cdc39a0 Rename skins stylesheets to main.less
    * 2019-06-22 03:12  **0.0.13**  Refactor
       * b6ab055 Some refactor
       * 2ebc302 Rename repo to roundcube-plugin-quota
