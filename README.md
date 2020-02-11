@@ -74,6 +74,9 @@ $ sudo vim /etc/dovecot/conf.d/90-quota.conf
 $ sudo service dovecot restart
 ```
 
+You may also refer to the official document of Dovecot's quota plugin:
+https://wiki.dovecot.org/Quota/Configuration
+
 
 ## How to set mailbox quota in Postfix?
 
