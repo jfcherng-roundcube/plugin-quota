@@ -1,10 +1,11 @@
 # Roundcube Plugin: Quota
 
-<a href="https://plugins.roundcube.net/packages/jfcherng/quota"><img alt="Roundcube Plugins" src="https://img.shields.io/badge/dynamic/json?label=downloads&query=$.package.downloads.total&url=https://plugins.roundcube.net/packages/jfcherng/quota.json"></a>
-<a href="https://github.com/jfcherng/roundcube-plugin-quota/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/jfcherng/roundcube-plugin-quota?logo=github"></a>
-<a href="https://github.com/jfcherng/roundcube-plugin-quota/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/jfcherng/roundcube-plugin-quota"></a>
-<a href="https://github.com/jfcherng/roundcube-plugin-quota/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/jfcherng/roundcube-plugin-quota?logo=github"></a>
-<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+[![Codacy grade](https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/roundcube-plugin-quota/dashboard)
+[![Packagist](https://img.shields.io/packagist/dt/jfcherng/quota?style=flat-square)](https://packagist.org/packages/jfcherng/quota)
+[![Packagist Version](https://img.shields.io/packagist/v/jfcherng/quota?style=flat-square)](https://packagist.org/packages/jfcherng/quota)
+[![Project license](https://img.shields.io/github/license/jfcherng/roundcube-plugin-quota?style=flat-square)](https://github.com/jfcherng/roundcube-plugin-quota/blob/v6/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/jfcherng/roundcube-plugin-quota?style=flat-square&logo=github)](https://github.com/jfcherng/roundcube-plugin-quota/stargazers)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
 A plugin that shows quota information with a pie chart for Roundcube.
 
@@ -29,10 +30,10 @@ Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 
 ### Install via Composer
 
-This plugin has been published on [the official Roundcube plugin repository](https://plugins.roundcube.net) by the name of [jfcherng/quota](https://plugins.roundcube.net/packages/jfcherng/quota).
+This plugin has been published on [the official Roundcube plugin repository](https://plugins.roundcube.net) by the name of [jfcherng/roundcube-plugin-quota](https://plugins.roundcube.net/packages/jfcherng/roundcube-plugin-quota).
 
 1. Go to your `ROUNDCUBE_HOME` (i.e., the root directory of your Roundcube).
-2. Run `$ composer require jfcherng/quota`.
+2. Run `$ composer require jfcherng/roundcube-plugin-quota`.
 3. You may edit the `config.inc.php` under this plugin's directory if you want to do some configurations.
 
 
