@@ -9,24 +9,20 @@
 
 A plugin that shows quota information with a pie chart for Roundcube.
 
-
 ## Requirements
 
 I only test this plugin with following environments. Other setup may work with luck.
 
 - PHP: >= `5.4.0`
 
+## What is Quota plugin
 
-## What is Quota plugin?
+Quota plugin is used in [Roundcube](https://roundcube.net/) to show
+_used space_ and _free space_ for given mailbox.
 
-Quota plugin is used in [Roundcube](https://roundcube.net/) to show 
-*used space* and *free space* for given mailbox.
+![demo](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/demo.png)
 
-![](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/demo.png)
-
-
-## How to install this plugin in Roundcube?
-
+## How to install this plugin in Roundcube
 
 ### Install via Composer
 
@@ -35,7 +31,6 @@ This plugin has been published on [the official Roundcube plugin repository](htt
 1. Go to your `ROUNDCUBE_HOME` (i.e., the root directory of your Roundcube).
 2. Run `$ composer require jfcherng/roundcube-plugin-quota`.
 3. You may edit the `config.inc.php` under this plugin's directory if you want to do some configurations.
-
 
 ### Install manually
 
@@ -55,30 +50,28 @@ $config['plugins'] = array(
 );
 ```
 
-
-## How to set mailbox quota in Dovecot?
-
-```bash
-$ sudo vim /etc/dovecot/conf.d/90-quota.conf
-```
-
-```
-	plugin {
-		quota = maildir:User quota
-		quota_rule = *storage=900M
-		quota_rule2 = Trash:storage=+100M
-		...
-	}
-```
+## How to set mailbox quota in Dovecot
 
 ```bash
-$ sudo service dovecot restart
+sudo vim /etc/dovecot/conf.d/90-quota.conf
+```
+
+```text
+  plugin {
+    quota = maildir:User quota
+    quota_rule = *storage=900M
+    quota_rule2 = Trash:storage=+100M
+    ...
+  }
+```
+
+```bash
+sudo service dovecot restart
 ```
 
 You may also refer to the official document of Dovecot's quota plugin:
 https://wiki.dovecot.org/Quota/Configuration
 
+## How to set mailbox quota in Postfix
 
-## How to set mailbox quota in Postfix?
-
-*Feel free to finish this section by submitting a Pull Request.*
+_Feel free to finish this section by submitting a Pull Request._
