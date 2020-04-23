@@ -1,10 +1,9 @@
 # Roundcube Plugin: Quota
 
-[![Codacy grade](https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/roundcube-plugin-quota/dashboard)
-[![Packagist](https://img.shields.io/packagist/dt/jfcherng/quota?style=flat-square)](https://packagist.org/packages/jfcherng/quota)
-[![Packagist Version](https://img.shields.io/packagist/v/jfcherng/quota?style=flat-square)](https://packagist.org/packages/jfcherng/quota)
-[![Project license](https://img.shields.io/github/license/jfcherng/roundcube-plugin-quota?style=flat-square)](https://github.com/jfcherng/roundcube-plugin-quota/blob/v6/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/jfcherng/roundcube-plugin-quota?style=flat-square&logo=github)](https://github.com/jfcherng/roundcube-plugin-quota/stargazers)
+[![Packagist](https://img.shields.io/packagist/dt/jfcherng-roundcube/quota?style=flat-square)](https://packagist.org/packages/jfcherng-roundcube/quota)
+[![Packagist Version](https://img.shields.io/packagist/v/jfcherng-roundcube/quota?style=flat-square)](https://packagist.org/packages/jfcherng-roundcube/quota)
+[![Project license](https://img.shields.io/github/license/jfcherng-roundcube/plugin-quota?style=flat-square)](https://github.com/jfcherng-roundcube/plugin-quota/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/jfcherng-roundcube/plugin-quota?style=flat-square&logo=github)](https://github.com/jfcherng-roundcube/plugin-quota/stargazers)
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
 A plugin that shows quota information with a pie chart for Roundcube.
@@ -20,16 +19,16 @@ I only test this plugin with following environments. Other setup may work with l
 Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 _used space_ and _free space_ for given mailbox.
 
-![demo](https://raw.githubusercontent.com/jfcherng/roundcube-quota-plugin/master/doc/screenshot/demo.png)
+![demo](https://raw.githubusercontent.com/jfcherng-roundcube/plugin-quota/master/doc/screenshot/demo.png)
 
 ## How to install this plugin in Roundcube
 
 ### Install via Composer
 
-This plugin has been published on [the official Roundcube plugin repository](https://plugins.roundcube.net) by the name of [jfcherng/roundcube-plugin-quota](https://plugins.roundcube.net/packages/jfcherng/roundcube-plugin-quota).
+This plugin has been published on [Packagist](https://packagist.org) by the name of [jfcherng-roundcube/quota](https://packagist.org/packages/jfcherng-roundcube/quota).
 
 1. Go to your `ROUNDCUBE_HOME` (i.e., the root directory of your Roundcube).
-2. Run `$ composer require jfcherng/roundcube-plugin-quota`.
+2. Run `composer require jfcherng-roundcube/quota`.
 3. You may edit the `config.inc.php` under this plugin's directory if you want to do some configurations.
 
 ### Install manually

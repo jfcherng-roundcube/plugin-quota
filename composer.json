@@ -1,9 +1,9 @@
 {
-    "name": "jfcherng/quota",
+    "name": "jfcherng-roundcube/quota",
     "description": "A plugin that shows quota information for Roundcube.",
     "type": "roundcube-plugin",
     "license": "MIT",
-    "homepage": "https://github.com/jfcherng/roundcube-plugin-quota",
+    "homepage": "https://github.com/jfcherng-roundcube/plugin-quota",
     "version": "0.0.14",
     "authors": [
         {
@@ -13,12 +13,6 @@
         {
             "name": "Victor Kirov",
             "email": "victor.kirov.eu@gmail.com"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://plugins.roundcube.net"
         }
     ],
     "require": {
