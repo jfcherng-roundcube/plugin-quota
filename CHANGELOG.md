@@ -2,6 +2,14 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2020-05-01 11:19  **0.0.15**  add pt_BR.inc localization
+      * a66de39 Create pt_BR.inc
+      * 041a1c7 chore: add FUNDING.yml
+      * 5dda244 chore: update package information
+      * 6183979 docs: make markdownlint happy
+      * cbadea2 docs: update badges to packagist's
+      * 5a46736 chore: update deps
+      * a4e01f6 Update README
    * 2020-02-06 16:01  **0.0.14**  Add translation: pl_PL (Polish)
       * 6ac38b7 Re-compile assets
       * 9f43bcf Update deps
