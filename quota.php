@@ -21,7 +21,7 @@ final class quota extends rcube_plugin
     {
         $this->load_plugin_config();
 
-        $this->add_texts('locales', true);
+        $this->add_texts('localization/', true);
         $this->add_hook('quota', [$this, 'quota_message']);
         $this->add_hook('settings_actions', [$this, 'settings_actions']);
         $this->register_action('plugin.' . __CLASS__, [$this, 'quota_init']);
