@@ -1,5 +1,6 @@
 # Roundcube Plugin: Quota
 
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfcherng-roundcube/plugin-quota/main/master?style=flat-square)](https://github.com/jfcherng-roundcube/plugin-quota/actions)
 [![Packagist](https://img.shields.io/packagist/dt/jfcherng-roundcube/quota?style=flat-square)](https://packagist.org/packages/jfcherng-roundcube/quota)
 [![Packagist Version](https://img.shields.io/packagist/v/jfcherng-roundcube/quota?style=flat-square)](https://packagist.org/packages/jfcherng-roundcube/quota)
 [![Project license](https://img.shields.io/github/license/jfcherng-roundcube/plugin-quota?style=flat-square)](https://github.com/jfcherng-roundcube/plugin-quota/blob/master/LICENSE)
@@ -19,7 +20,7 @@ I only test this plugin with following environments. Other setup may work with l
 Quota plugin is used in [Roundcube](https://roundcube.net/) to show
 _used space_ and _free space_ for given mailbox.
 
-![demo](https://raw.githubusercontent.com/jfcherng-roundcube/plugin-quota/master/doc/screenshot/demo.png)
+![demo](https://raw.githubusercontent.com/jfcherng-roundcube/plugin-quota/master/docs/screenshot/demo.png)
 
 ## How to install this plugin in Roundcube
 

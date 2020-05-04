@@ -18,21 +18,14 @@ global.drawDiskQuota = () => {
   let config = {
     type: 'pie',
     data: {
-      datasets: [{
-        data: [
-          plugin_quota_chart_vars.quota_used_kb,
-          plugin_quota_chart_vars.quota_free_kb,
-        ],
-        backgroundColor: [
-          colors.red,
-          colors.green,
-        ],
-        label: plugin_quota_chart_vars.char_title,
-      }],
-      labels: [
-        plugin_quota_chart_vars.label_used_space,
-        plugin_quota_chart_vars.label_free_space,
+      datasets: [
+        {
+          data: [plugin_quota_chart_vars.quota_used_kb, plugin_quota_chart_vars.quota_free_kb],
+          backgroundColor: [colors.red, colors.green],
+          label: plugin_quota_chart_vars.char_title,
+        },
       ],
+      labels: [plugin_quota_chart_vars.label_used_space, plugin_quota_chart_vars.label_free_space],
     },
     options: {
       responsive: true,
@@ -44,15 +37,17 @@ global.drawDiskQuota = () => {
 
             let title = data.labels[tooltip_item.index];
 
-            let space_humanized = tooltip_item.index === 0
-              ? plugin_quota_chart_vars.quota_used_humanized
-              : plugin_quota_chart_vars.quota_free_humanized;
+            let space_humanized =
+              tooltip_item.index === 0
+                ? plugin_quota_chart_vars.quota_used_humanized
+                : plugin_quota_chart_vars.quota_free_humanized;
 
-            let space_kb = tooltip_item.index === 0
-              ? plugin_quota_chart_vars.quota_used_kb
-              : plugin_quota_chart_vars.quota_free_kb;
+            let space_kb =
+              tooltip_item.index === 0
+                ? plugin_quota_chart_vars.quota_used_kb
+                : plugin_quota_chart_vars.quota_free_kb;
 
-            let space_percentage = space_kb / plugin_quota_chart_vars.quota_total_kb * 100;
+            let space_percentage = (space_kb / plugin_quota_chart_vars.quota_total_kb) * 100;
 
             return `${title} ${space_humanized} ( ${space_percentage.toFixed(2)}% )`;
           },
