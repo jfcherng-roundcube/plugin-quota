@@ -2,6 +2,9 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2020-05-10 15:58  **0.0.16**  add nb_NO localization
+      * d430640 Add: Norwegian
+      * 1201b5d refactor: add CI, tidy codes and environments
    * 2020-05-01 11:19  **0.0.15**  add pt_BR.inc localization
       * a66de39 Create pt_BR.inc
       * 041a1c7 chore: add FUNDING.yml
