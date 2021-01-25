@@ -11,11 +11,11 @@
     "clean-css-cli": "^4.3.0",
     "core-js": "^3",
     "eslint": "^7",
-    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-prettier": "^7",
     "eslint-plugin-prettier": "^3.1.2",
-    "less": "^3.9.0",
+    "less": "^4",
     "prettier": "^2.0.4",
-    "terser": "^4.1.2"
+    "terser": "^5"
   },
   "scripts": {
     "prettier-check": "prettier --write *.md assets/**/*.js skins/**/*.less",
