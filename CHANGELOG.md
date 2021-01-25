@@ -2,6 +2,19 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2021-01-25 17:48  **0.0.17**  chore: add sl_SI.inc localization
+      * 9243fe3 chore: php-cs-fixer excludes node_modules/
+      * 972b875 chore: recompile assets
+      * 89f8410 chore: update deps
+      * ba04e65 chore: add sl_SI.inc localization
+      * 8771bf7 chore: recompile assets
+      * 08df00d chore: update deps
+      * 393320f chore(ci): Composer 2 no longer needs hirak/prestissimo
+      * b13e0b6 chore: update deps
+      * 0417109 chore: update built assets
+      * dc3b922 chore: update deps
+      * 302f7e8 chore: update build script
+      * 35ba507 chore: update deps
    * 2020-05-10 15:58  **0.0.16**  add nb_NO localization
       * d430640 Add: Norwegian
       * 1201b5d refactor: add CI, tidy codes and environments
