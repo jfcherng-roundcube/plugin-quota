@@ -36,6 +36,7 @@ $config = PhpCsFixer\Config::create()
     ->setFinder(
         PhpCsFixer\Finder::create()
             ->exclude('libs')
+            ->exclude('node_modules')
             ->exclude('tests/Fixtures')
             ->exclude('var')
             ->exclude('vendor')
