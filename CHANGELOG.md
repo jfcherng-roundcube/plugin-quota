@@ -2,6 +2,13 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2021-07-25 13:14  **0.0.18**  fix versioning
+      * cd443f7 chore: recompile assets
+      * 3953bf5 chore: update deps
+      * c7105c6 chore: min requirement PHP 7.1.3
+      * 95db0ee chore: remove version info from composer.json
+      * a3c35be chore: update license year
+      * f04e66c chore: add RMT executable
    * 2021-01-25 17:48  **0.0.17**  chore: add sl_SI.inc localization
       * 9243fe3 chore: php-cs-fixer excludes node_modules/
       * 972b875 chore: recompile assets
