@@ -2,6 +2,8 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2021-07-26 15:52  **0.0.19**  remove distributed RMT
+      * 52be95c chore: no need to distribute RMT
    * 2021-07-25 13:14  **0.0.18**  fix versioning
       * cd443f7 chore: recompile assets
       * 3953bf5 chore: update deps
