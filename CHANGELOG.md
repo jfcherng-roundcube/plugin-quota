@@ -2,6 +2,9 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2021-08-11 12:14  **0.0.20**  fix deps
+      * 2266913 chore: update deps
+      * 2ea2e88 chore: remove `replace` directive from composer.json (#8)
    * 2021-07-26 15:52  **0.0.19**  remove distributed RMT
       * 52be95c chore: no need to distribute RMT
    * 2021-07-25 13:14  **0.0.18**  fix versioning
