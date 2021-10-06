@@ -43,9 +43,7 @@ global.drawDiskQuota = () => {
                 : plugin_quota_chart_vars.quota_free_humanized;
 
             let space_kb =
-              tooltip_item.index === 0
-                ? plugin_quota_chart_vars.quota_used_kb
-                : plugin_quota_chart_vars.quota_free_kb;
+              tooltip_item.index === 0 ? plugin_quota_chart_vars.quota_used_kb : plugin_quota_chart_vars.quota_free_kb;
 
             let space_percentage = (space_kb / plugin_quota_chart_vars.quota_total_kb) * 100;
 

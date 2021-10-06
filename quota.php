@@ -60,7 +60,7 @@ final class quota extends rcube_plugin
             90 => 'warning',
         ];
 
-        \krsort($thresholds);
+        krsort($thresholds);
 
         foreach ($thresholds as $percent => $level) {
             if ($args['percent'] >= $percent) {
@@ -92,7 +92,7 @@ final class quota extends rcube_plugin
         $quota_total_humanized = $RCMAIL->show_bytes($quota_total_kb * 1024);
 
         if (isset($quota['total'])) {
-            $quota_text = \sprintf(
+            $quota_text = sprintf(
                 '%.2f%% ( %s of %s )',
                 $quota['percent'],
                 $quota_used_humanized,
@@ -117,7 +117,7 @@ final class quota extends rcube_plugin
                             html::p(
                                 ['id' => 'quota-plugin-debug-info'],
                                 (
-                                    'dump $quota = ' . \print_r($quota, true)
+                                    'dump $quota = ' . print_r($quota, true)
                                 )
                             ) : ''
                     ) .
@@ -140,7 +140,7 @@ final class quota extends rcube_plugin
                         $this->config->get('show_admin_contact') ?
                             html::p(
                                 null,
-                                \sprintf($this->gettext('problem_please_contact'), $this->config->get('admin_contact'))
+                                sprintf($this->gettext('problem_please_contact'), $this->config->get('admin_contact'))
                             ) : ''
                     )
                 )
@@ -158,7 +158,7 @@ final class quota extends rcube_plugin
             'quota_free_humanized' => $quota_free_humanized,
             'quota_total_humanized' => $quota_total_humanized,
         ];
-        $js_variables_encoded = \json_encode($js_variables, \JSON_UNESCAPED_UNICODE | \JSON_FORCE_OBJECT);
+        $js_variables_encoded = json_encode($js_variables, \JSON_UNESCAPED_UNICODE | \JSON_FORCE_OBJECT);
 
         $out .= $this->config->get('enable_chart_presentation') ?
             "<script>
