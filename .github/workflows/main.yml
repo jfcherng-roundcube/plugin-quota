@@ -54,7 +54,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -f composer.lock && composer install
-          yarn install
+          sudo yarn install
 
       - run: composer run-script lint
       - run: yarn run prettier-check
