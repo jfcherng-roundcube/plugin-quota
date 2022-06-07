@@ -2,6 +2,14 @@
 ## VERSION 0  INIT
 
  * Version **0.0** - init
+   * 2022-06-07 09:21  **0.0.21**  Update deps
+      * 7fde051 chore: recompile assets
+      * 5804e26 chore: update deps
+      * b73c647 chore(ci): fix frontend CI not working
+      * 19f6ce0 chore: update deps
+      * 9ff84d3 chore: recompile assets
+      * 46559f3 style: reformat files
+      * 0a7970c chore: update deps
    * 2021-08-11 12:14  **0.0.20**  fix deps
       * 2266913 chore: update deps
       * 2ea2e88 chore: remove `replace` directive from composer.json (#8)
